@@ -9,21 +9,18 @@ function generateValidCSSClassName(styleId) {
   return 'c' + styleId;
 }
 
-var global = Function("return this")();
-global.__RCSS_0_registry = global.__RCSS_0_registry || {};
-
-function registerClass(styleObj) {
+function registerClass(base, attr, styleObj) {
   var styleId = generateValidCSSClassName(hashStyle(styleObj));
 
-  if (global.__RCSS_0_registry[styleId] == null) {
-    global.__RCSS_0_registry[styleId] = {
+  if (base[attr][styleId] == null) {
+    base[attr][styleId] = {
       className: styleId,
       style: styleObj
     };
   }
 
   // Simple shallow clone
-  styleObj = global.__RCSS_0_registry[styleId];
+  styleObj = base[attr][styleId];
   return {
     className: styleObj.className,
     style: styleObj.style
